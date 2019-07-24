@@ -41,4 +41,23 @@ server.post("/projects", (req, res) => {
   return res.json(projects);
 });
 
+// update project
+server.put("/projects/:id", (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  projects[id].title = title;
+
+  return res.json(projects);
+});
+
+// delete project
+server.delete("/projects/:id", (req, res) => {
+  const { id } = req.params;
+
+  projects.splice(id, 1);
+
+  return res.send();
+});
+
 server.listen(3000);
