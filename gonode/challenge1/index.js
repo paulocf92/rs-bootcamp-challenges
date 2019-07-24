@@ -4,6 +4,9 @@ const server = express();
 
 server.use(express.json());
 
+// requests count
+let requests = 0;
+
 // in-memory projects storage
 const projects = [
   {
@@ -29,11 +32,29 @@ const projects = [
   }
 ];
 
+// middlewares
+function checkProjectExists(req, res, next) {
+  const { id } = req.params;
+  if (!projects[id]) {
+    return res.status(400).json({ message: "Project does not exist" });
+  }
+
+  return next();
+}
+
+function countRequests(req, res, next) {
+  requests++;
+
+  console.log(`Total requests until now: ${requests}`);
+
+  return next();
+}
+
 // return all projects
-server.get("/projects", (req, res) => res.json(projects));
+server.get("/projects", countRequests, (req, res) => res.json(projects));
 
 // register a new project
-server.post("/projects", (req, res) => {
+server.post("/projects", countRequests, (req, res) => {
   const { id, title } = req.body;
 
   projects.push({ id, title, tasks: [] });
@@ -42,7 +63,7 @@ server.post("/projects", (req, res) => {
 });
 
 // update project
-server.put("/projects/:id", (req, res) => {
+server.put("/projects/:id", countRequests, checkProjectExists, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
@@ -52,22 +73,32 @@ server.put("/projects/:id", (req, res) => {
 });
 
 // delete project
-server.delete("/projects/:id", (req, res) => {
-  const { id } = req.params;
+server.delete(
+  "/projects/:id",
+  countRequests,
+  checkProjectExists,
+  (req, res) => {
+    const { id } = req.params;
 
-  projects.splice(id, 1);
+    projects.splice(id, 1);
 
-  return res.send();
-});
+    return res.send();
+  }
+);
 
 // project tasks
-server.post("/projects/:id/tasks", (req, res) => {
-  const { id } = req.params;
-  const { title } = req.body;
+server.post(
+  "/projects/:id/tasks",
+  countRequests,
+  checkProjectExists,
+  (req, res) => {
+    const { id } = req.params;
+    const { title } = req.body;
 
-  projects[id].tasks.push(title);
+    projects[id].tasks.push(title);
 
-  return res.json(projects);
-});
+    return res.json(projects);
+  }
+);
 
 server.listen(3000);
