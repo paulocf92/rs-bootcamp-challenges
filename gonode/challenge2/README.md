@@ -33,7 +33,7 @@ Allow for new users to be registered in the app using name, e-mail and password.
 
 In order to update password, the user must also send a confirmation field with the same password.
 
-- Encrypt user password for satety;
+- Encrypt user password for safety;
 - Entry user data must be validated to avoid incorrect operations.
 
 ## How to test the app
