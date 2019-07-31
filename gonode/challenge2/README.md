@@ -8,13 +8,13 @@ In this app the following tools must be used:
 
 - Sucrase + Nodemon;
 - ESLint + Prettier + EditorConfig;
-- Sequelize (use either PostgresSQL or MySQL);
+- Sequelize (use either PostgreSQL or MySQL);
 
 This challenge marks the beginning of a new project within the bootcamp. It will be slowly developed until the bootcamp journey's end; by that point we're expected to have a full app with back-end, front-end and mobile.
 
 ## Application
 
-This app aggregates events for developers and will be called Metapp. In this first challenge we're tasked to create a few basic features learned throughout this module.
+This app aggregates events for developers and will be called Meetapp. In this first challenge we're tasked to create a few basic features learned throughout this module.
 
 ## Features
 
