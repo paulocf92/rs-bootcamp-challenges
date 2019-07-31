@@ -24,7 +24,7 @@ class UserController {
     if (email !== user.email) {
       const userExists = await User.findOne({ where: { email } });
 
-      // ensures they cannot modify their an email to one already in use
+      // ensures they cannot modify their email to one already in use
       if (userExists) {
         return res.status(400).json({ error: 'E-mail already taken.' });
       }
