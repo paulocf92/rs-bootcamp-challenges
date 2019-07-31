@@ -40,4 +40,4 @@ In order to update password, the user must also send a confirmation field with t
 
 1. Install the dependencies: `yarn install`
 2. Start the app: `yarn dev`
-3. Visit `localhost:3333` :rocket:.
+3. Send requests to `localhost:3333` routes via a REST client :rocket:.
