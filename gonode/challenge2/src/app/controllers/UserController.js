@@ -17,12 +17,20 @@ class UserController {
   async update(req, res) {
     const { email, oldPassword } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    // find user by userId passed by auth middleware
+    const user = await User.findByPk(req.userId);
 
-    if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+    // user is attempting to change their email
+    if (email !== user.email) {
+      const userExists = await User.findOne({ where: { email } });
+
+      // ensures they cannot modify their an email to one already in use
+      if (userExists) {
+        return res.status(400).json({ error: 'E-mail already taken.' });
+      }
     }
 
+    // user is attempting to change password and it does not match
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
       return res.status(401).json({ error: 'Password does not match' });
     }
