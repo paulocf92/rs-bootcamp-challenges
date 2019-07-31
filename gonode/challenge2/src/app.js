@@ -1,6 +1,8 @@
 import express from 'express';
 import routes from './routes';
 
+import './database'; // connects to db and load all models
+
 class App {
   constructor() {
     this.server = express();
