@@ -1,5 +1,9 @@
 import Bee from 'bee-queue';
+import * as Sentry from '@sentry/node';
+import sentryConfig from '../config/sentry';
 import SubscriptionMail from '../app/jobs/SubscriptionMail';
+
+Sentry.init(sentryConfig);
 
 const jobs = [SubscriptionMail];
 
@@ -15,8 +19,8 @@ class Queue {
       this.queues[key] = {
         bee: new Bee(key, {
           redis: {
-            host: '192.168.99.100',
-            port: 6379,
+            host: process.env.REDIS_HOST,
+            port: process.env.REDIS_PORT,
           },
         }),
         handle,
@@ -32,8 +36,18 @@ class Queue {
     jobs.forEach(job => {
       const { bee, handle } = this.queues[job.key];
 
-      bee.process(handle);
+      // call an optional 'on' method to listen to a failure handling function
+      // process is used to effectively run the jobs in the queue
+      bee.on('failed', this.handleFailure).process(handle);
     });
+  }
+
+  handleFailure(job, err) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Queue ${job.queue.name}: FAILED`, err);
+    }
+
+    Sentry.captureException(err);
   }
 }
 
