@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import routes from './routes';
 
@@ -13,6 +14,12 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
+    this.server.use(express.urlencoded({ extended: false }));
+    // allow for external access to this file
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   routes() {
