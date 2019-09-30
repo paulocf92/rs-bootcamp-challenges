@@ -1,10 +1,10 @@
 import React from "react";
 
 const Header = () => (
-  <ul class="menu">
-    <li class="logo">facebook</li>
-    <li class="profile">
-      Meu perfil <i class="material-icons">account_circle</i>
+  <ul className="menu">
+    <li className="logo">facebook</li>
+    <li className="profile">
+      Meu perfil <i className="material-icons">account_circle</i>
     </li>
   </ul>
 );
