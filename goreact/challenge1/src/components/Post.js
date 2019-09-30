@@ -1,5 +1,7 @@
 import React from "react";
 
+import Comment from "./Comment";
+
 const Post = ({ data: post }) => (
   <div className="post">
     <div className="author">
@@ -10,7 +12,12 @@ const Post = ({ data: post }) => (
       </div>
     </div>
     <p className="content">{post.content}</p>
-    <div className="comments"></div>
+    <div className="comments">
+      {post.comments &&
+        post.comments.map(comment => (
+          <Comment key={comment.id} data={comment} />
+        ))}
+    </div>
   </div>
 );
 

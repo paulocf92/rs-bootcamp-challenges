@@ -55,33 +55,53 @@ li.profile i {
   box-shadow: 0 0 6px #ccc;
 }
 
-.post .author {
+.post > .author {
   display: flex;
   align-items: center;
   padding-bottom: 18px;
 }
 
-.post .author img {
+.post > .author img {
   border-radius: 50%;
   width: 50px;
 }
 
-.post .author .details {
+.post > .author .details {
   display: flex;
   flex-direction: column;
   padding-left: 10px;
 }
 
-.post .author .details strong {
-  font-size: 15px;
-}
-
-.post .author .details span {
+.post > .author .details span {
   font-size: 12px;
   color: #bbb;
 }
 
-.post .content {
+.post > .content {
   padding-bottom: 18px;
   border-bottom: 1px solid #eee;
+}
+
+.post .comments {
+  padding: 10px 0;
+}
+
+.post .comment {
+  display: flex;
+  padding-top: 10px;
+}
+
+.post .comment .author {
+  padding-right: 10px;
+}
+
+.post .comment .author img {
+  border-radius: 50%;
+  width: 40px;
+}
+
+.post .comment .text {
+  background: #eee;
+  padding: 14px;
+  border-radius: 20px;
 }
