@@ -51,6 +51,14 @@ export default class Main extends Component {
         name: response.data.full_name,
       };
 
+      const checkDuplicate = repositories.filter(
+        repo => repo.name === data.name
+      );
+
+      if (checkDuplicate.length) {
+        throw new Error('Duplicate repository');
+      }
+
       this.setState({
         repositories: [...repositories, data],
         newRepo: '',
