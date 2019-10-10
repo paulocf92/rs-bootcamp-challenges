@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Loading, Owner, IssueList } from './styles';
+import { Loading, Owner, IssueList, IssueFilter } from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -18,11 +18,18 @@ export default class Repository extends Component {
   state = {
     repository: {},
     issues: [],
+    filters: [
+      { state: 'all', label: 'Todas' },
+      { state: 'open', label: 'Abertas' },
+      { state: 'closed', label: 'Fechadas' },
+    ],
+    stateFilter: 1,
     loading: true,
   };
 
   async componentDidMount() {
     const { match } = this.props;
+    await this.setState({ stateFilter: 1 });
 
     const repoName = decodeURIComponent(match.params.repository);
 
@@ -44,8 +51,26 @@ export default class Repository extends Component {
     });
   }
 
+  loadIssues = async () => {
+    const { repository, stateFilter, filters } = this.state;
+
+    const issues = await api.get(`/repos/${repository.full_name}/issues`, {
+      params: {
+        state: filters[stateFilter].state,
+        per_page: 5,
+      },
+    });
+
+    this.setState({ issues: issues.data });
+  };
+
+  handleButtonClick = async stateFilter => {
+    await this.setState({ stateFilter });
+    this.loadIssues();
+  };
+
   render() {
-    const { repository, issues, loading } = this.state;
+    const { repository, issues, loading, stateFilter, filters } = this.state;
 
     if (loading) {
       return <Loading>Carregando</Loading>;
@@ -59,7 +84,19 @@ export default class Repository extends Component {
           <h1>{repository.name}</h1>
           <p>{repository.description}</p>
         </Owner>
-
+        <IssueFilter state={stateFilter}>
+          {filters.map((filter, index) => (
+            <button
+              type="button"
+              key={filter.label}
+              disabled={loading}
+              className={filter.state}
+              onClick={() => this.handleButtonClick(index)}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </IssueFilter>
         <IssueList>
           {issues.map(issue => (
             <li key={String(issue.id)}>
