@@ -148,3 +148,27 @@ export const IssueFilter = styled.div`
     }
   }
 `;
+
+export const PageNavigation = styled.div`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  span {
+    padding: 0 10px;
+  }
+
+  button {
+    font-size: 26px;
+    background: none;
+    border: 0;
+
+    &:hover {
+      color: #bbb;
+    }
+
+    &:disabled {
+      opacity: 0.2;
+    }
+  }
+`;

@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Loading, Owner, IssueList, IssueFilter } from './styles';
+import {
+  Loading,
+  Owner,
+  IssueList,
+  IssueFilter,
+  PageNavigation,
+} from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -24,12 +30,12 @@ export default class Repository extends Component {
       { state: 'closed', label: 'Fechadas' },
     ],
     stateFilter: 1,
+    page: 1,
     loading: true,
   };
 
   async componentDidMount() {
     const { match } = this.props;
-    await this.setState({ stateFilter: 1 });
 
     const repoName = decodeURIComponent(match.params.repository);
 
@@ -52,25 +58,43 @@ export default class Repository extends Component {
   }
 
   loadIssues = async () => {
-    const { repository, stateFilter, filters } = this.state;
+    const { repository, stateFilter, filters, page } = this.state;
 
     const issues = await api.get(`/repos/${repository.full_name}/issues`, {
       params: {
         state: filters[stateFilter].state,
         per_page: 5,
+        page,
       },
     });
 
     this.setState({ issues: issues.data });
   };
 
-  handleButtonClick = async stateFilter => {
+  handleFilterClick = async stateFilter => {
     await this.setState({ stateFilter });
     this.loadIssues();
   };
 
+  handlePageClick = async action => {
+    const { page } = this.state;
+
+    await this.setState({
+      page: action === 'back' ? Math.max(page - 1, 1) : page + 1,
+    });
+
+    this.loadIssues();
+  };
+
   render() {
-    const { repository, issues, loading, stateFilter, filters } = this.state;
+    const {
+      repository,
+      issues,
+      loading,
+      filters,
+      stateFilter,
+      page,
+    } = this.state;
 
     if (loading) {
       return <Loading>Carregando</Loading>;
@@ -91,7 +115,7 @@ export default class Repository extends Component {
               key={filter.label}
               disabled={loading}
               className={filter.state}
-              onClick={() => this.handleButtonClick(index)}
+              onClick={() => this.handleFilterClick(index)}
             >
               {filter.label}
             </button>
@@ -113,6 +137,19 @@ export default class Repository extends Component {
             </li>
           ))}
         </IssueList>
+        <PageNavigation>
+          <button
+            disabled={page < 2}
+            type="button"
+            onClick={() => this.handlePageClick('back')}
+          >
+            ⇦
+          </button>
+          <span>Página {page}</span>
+          <button type="button" onClick={() => this.handlePageClick('next')}>
+            ⇨
+          </button>
+        </PageNavigation>
       </Container>
     );
   }
