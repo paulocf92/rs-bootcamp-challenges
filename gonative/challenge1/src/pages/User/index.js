@@ -32,6 +32,7 @@ export default class User extends Component {
       user: {},
       page: 0,
       lastPage: false,
+      refreshing: false,
     };
   }
 
@@ -74,8 +75,18 @@ export default class User extends Component {
     }
   };
 
+  refreshList = async () => {
+    await this.setState({
+      stars: [],
+      page: 0,
+      lastPage: false,
+    });
+
+    this.loadRepositories();
+  };
+
   render() {
-    const { stars, loading, user } = this.state;
+    const { stars, loading, refreshing, user } = this.state;
 
     return (
       <Container>
@@ -91,6 +102,8 @@ export default class User extends Component {
           <Stars
             onEndReachedThreshold={0.2}
             onEndReached={this.loadRepositories}
+            onRefresh={this.refreshList}
+            refreshing={refreshing}
             data={stars}
             keyExtractor={star => String(star.id)}
             renderItem={({ item }) => (
