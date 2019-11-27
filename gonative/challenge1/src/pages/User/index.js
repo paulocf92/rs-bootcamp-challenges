@@ -29,6 +29,9 @@ export default class User extends Component {
     this.state = {
       stars: [],
       loading: false,
+      user: {},
+      page: 0,
+      lastPage: false,
     };
   }
 
@@ -36,20 +39,43 @@ export default class User extends Component {
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
-    this.setState({ loading: true });
+    await this.setState({ user });
 
-    const response = await api.get(`/users/${user.login}/starred`);
-
-    this.setState({
-      stars: response.data,
-      loading: false,
-    });
+    this.loadRepositories();
   }
 
+  loadRepositories = async () => {
+    const { user, page, stars, lastPage } = this.state;
+
+    // If we didn't reach last page
+    if (!lastPage) {
+      this.setState({ loading: true });
+
+      const response = await api.get(
+        `/users/${user.login}/starred?page=${page + 1}`,
+      );
+
+      const starsCount = response.data.length;
+
+      // If this request had any results
+      if (starsCount > 0) {
+        this.setState({
+          stars: stars.concat(response.data),
+          page: page + 1,
+          loading: false,
+          lastPage: starsCount < 30, // Try to predict last page (<30 length)
+        });
+      } else {
+        this.setState({
+          loading: false,
+          lastPage: true,
+        });
+      }
+    }
+  };
+
   render() {
-    const { navigation } = this.props;
-    const { stars, loading } = this.state;
-    const user = navigation.getParam('user');
+    const { stars, loading, user } = this.state;
 
     return (
       <Container>
@@ -63,6 +89,8 @@ export default class User extends Component {
           <Loader />
         ) : (
           <Stars
+            onEndReachedThreshold={0.2}
+            onEndReached={this.loadRepositories}
             data={stars}
             keyExtractor={star => String(star.id)}
             renderItem={({ item }) => (
