@@ -1,4 +1,4 @@
-# Challenge 2
+# Challenge 6
 
 ## Description
 
@@ -17,7 +17,7 @@ Validate the input repository before attempting to call the Github API within `h
 If it does, fire an error so that it's caught by our `try/catch` block added in the previous feature.
 
 ```js
-throw new Error("Duplicate repository");
+throw new Error('Duplicate repository');
 ```
 
 ### State Filter
