@@ -2,18 +2,18 @@
 
 This repo holds all code created for RocketSeat's Bootcamp Challenges.
 
-- GoNode
+- Stage #1: Setting up VSCode environment
 
-  - [First Module - Environment and Concepts](gonode/challenge1)
-  - [Second Module - Meetapp](gonode/challenge2)
-  - [Third Module - Meetapp Continuation](gonode/challenge3)
+- Stage #2: Mastering NodeJS!
 
-- GoReact
+  - [Module 2 - Environment and Concepts](stage2/challenge2)
+  - [Module 3 - Meetapp](stage2/challenge3)
+  - [Module 4 - Meetapp Continuation](stage2/challenge4)
 
-  - [First Module - Environment and Concepts](goreact/challenge1)
-  - [Second Module - First Project in ReactJS](goreact/challenge2)
+- Stage #3: Mastering React!
 
-- GoNative
-  - [First Module - First Project in ReactNative](gonative/challenge1)
+  - [Module 5 - Introduction to React](stage3/challenge5)
+  - [Module 6 - First Project in ReactJS](stage3/challenge6)
+  - [Module 7 - First Project in ReactNative](stage3/challenge7)
 
 Should you find any issues with the code, hit me up or send a pull request! :heart:
