@@ -16,4 +16,7 @@ This repo holds all code created for RocketSeat's Bootcamp Challenges.
   - [Module 6 - First Project in ReactJS](stage3/challenge6)
   - [Module 7 - First Project in ReactNative](stage3/challenge7)
 
+- Stage #4: Flux Architecture and React Hooks
+  - [Module 8 - Flux Architecture](stage4/challenge8)
+
 Should you find any issues with the code, hit me up or send a pull request! :heart:
