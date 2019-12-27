@@ -2,56 +2,115 @@
 
 ## Description
 
-For this challenge we're going to improve our Meetapp which we started in the previous challenge, adding features learned throughout this module.
+For this challenge we're going to improve our Gympoint which we started in the previous challenge, adding features learned throughout this module.
 
 ## Features
 
-We're tasked to adding the following features to our app:
+### Administrator features
 
-### File Management
+The features available to administrators are described below:
 
-Create a route for file uploading that stores file path and name in a table, and returns all data related to this stored file.
+#### Plans Management
 
-### Meetup Management
+Allow the user to register plans for student registration, plans must have the following fields:
 
-The user may register meetups with title, description, location, date/hour and image (banner). Every field is required. It's mandatory to add a user_id field that will store the organizer's id.
+- title (plan name);
+- duration (duration measured in months);
+- price (the plan's monthly price);
+- created_at;
+- updated_at;
 
-It must not be possible to register meetups with past dates.
+Create some plans like the following:
 
-The user may edit all information for meetups which haven't happened yet and belong to them.
+- `Start`: 1-month plan for R\$129;
+- `Gold`: 3-month plan for R\$109/month;
+- `Diamond`: 6-month plan for R\$89/month;
 
-Create a route to list all meetups organized by the logged user.
+Create routes for plan listing/registering/update/removal;
 
-The user may cancel meetups organized by them which haven't happened yet. The cacellation process must delete that meetup from the database.
+PS.: This feature is only available for administrators authenticated in the app.
 
-### Meetup Subscription
+#### Student Registration Management
 
-Users may subscribe to a meetup, attempting to the following facts:
+Despite being registered in the platform, it doesn't mean the student will have an active registration and may access the gym.
 
-- Users may subscribe to meetups not organized by them;
-- Users may not subscribe to meetups which have already happened;
-- Users may not subscribe to the same meetup twice;
-- Users may not subscribe to more than one meetup that happens at the same time.
+For this feature we'll create a student registration register, it will have the following fields:
 
-Whenever an user subscribe to a meetup, send an e-mail to the meetup organized with all data related to the subscribed user. We're free to choose an e-mail template. :)
+- student_id (student reference);
+- plan_id (plan reference);
+- start_date (registration starting date);
+- end_date (registration ending date);
+- price (total price calculated at registration date);
+- created_at;
+- updated_at;
 
-### Meetup Listing
+Registration's **starting date** must be chosen by the user.
 
-Create a route to list all meetups filtered by date (not to be confused with time). The results must be paginated by 10 items per page. Below is an example of such route call:
+Registration's **ending date** and **price** must be calculated based on chosen plan, for example:
 
-```
-http://localhost:3333/meetups?date=2019-07-01&page=2
-```
+Starting date: `23/05/2019`
+Selected plan: `Gold (3 months)`
+Ending date: `23/08/2019 (3 months past starting date)`
+Calculated price: `R$327`
 
-In this example we're listing the second page of meetups which will happen on July, 1st.
+Whenever a student **performs a registration** they'll receive an e-mail with his gym subscription details such as plan, ending date, price and a welcome message.
 
-This list must also return the organizer info.
+Create routes for registration listing/registering/updating/removal;
 
-### Subscription List
+PS.: This feature is only available for administrators authenticated in the app.
 
-Create a route to list all meetups that the user is subscribed to.
+### Student features
 
-List only meetups which haven't happened yet, and order them from closest to oldest.
+The features available to students are described below:
+
+#### Check-ins
+
+Whenever a student arrives at the gym they'll perform a check-in by passing their register ID (ID from database);
+
+This check-in is used to monitor how many times the user has attended gym this week.
+
+The table `checkins` will have the following fields:
+
+- student_id (student reference);
+- created_at;
+- updated_at;
+
+The iser may only perform **5 check-ins** during a period of 7 days in a row.
+
+Request example: `POST https://gympoint.com/students/3/checkins`
+
+Create a route to list all check-ins performed by an user based on their register ID;
+
+Request example: `GET https://gympoint.com/students/3/checkins`
+
+#### Help Orders
+
+Students may create requests for aid to the gym regarding some exercise, eating or any other instruction;
+
+The table `help_orders` must contain the following fields:
+
+- student_id (student reference);
+- question (student order);
+- answer (gym answer);
+- answer_at (gym answer date);
+- created_at;
+- updated_at;
+
+Create a route for the gym to list all help orders without an answer;
+
+Create a route for the students to register help orders entering only their register ID (ID from database);
+
+Request example: `POST https://gympoint.com/students/3/help-orders`
+
+Create a route to list all help orders requested by an user based on their register ID;
+
+Request example: `GET https://gympoint.com/students/3/help-orders`
+
+Create a route for the gym to answer a help order:
+
+Request example: `POST https://gympoint.com/help-orders/1/answer`
+
+Whenever a help order is answered, the student must receive an e-mail in the platform with their request and the gym answer;
 
 ## How to test the app
 
