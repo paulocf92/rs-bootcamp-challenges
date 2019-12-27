@@ -8,7 +8,7 @@ This repo holds all code created for RocketSeat's Bootcamp Challenges.
 
   - [Module 2 - Environment and Concepts](stage2/challenge2)
   - [Module 3 - Gympoint](stage2/challenge3)
-  - [Module 4 - Meetapp Continuation](stage2/challenge4)
+  - [Module 4 - Gympoint Continuation](stage2/challenge4)
 
 - Stage #3: Mastering React!
 
