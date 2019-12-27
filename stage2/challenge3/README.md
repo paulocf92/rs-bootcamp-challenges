@@ -1,40 +1,79 @@
 # Challenge 3
 
-## Description
+The app we'll start developing from now on is a gym management app called **Gympoint**.
 
-Create an app from scratch using ExpressJS.
+In this initial challenge we'll create basic features learned throughout the module so far. This project will be slowly developed the bootcamp journey's end; by that point we're expected to have a full app with back-end, front-end and mobile, which will be used for the **bootcamp's certification**.
 
-In this app the following tools must be used:
+## About the tools
+
+You are tasked to creating an app from scratch using ExpressJS, besides the following tools must be used:
 
 - Sucrase + Nodemon;
 - ESLint + Prettier + EditorConfig;
-- Sequelize (use either PostgreSQL or MySQL);
-
-This challenge marks the beginning of a new project within the bootcamp. It will be slowly developed until the bootcamp journey's end; by that point we're expected to have a full app with back-end, front-end and mobile.
-
-## Application
-
-This app aggregates events for developers and will be called Meetapp. In this first challenge we're tasked to create a few basic features learned throughout this module.
+- Sequelize (use either PostgreSQL or MySQL).
 
 ## Features
 
 This app will feature the following:
 
-### Authentication
+#### Authentication
 
-Allow for an user to authenticate self using an e-mail and password.
+Allow the user to authenticate themselves in your app using their e-mail and password.
 
-- The authentication must be done with JWT.
-- Entry user data must be validated to avoid incorrect operations.
+Create an administrator user using [sequelize seeds](https://sequelize.org/master/manual/migrations.html#creating-first-seed), this feature's purpose is to create records in the database in an automated fashion.
 
-### User registration and update
+To create a seed use the following:
 
-Allow for new users to be registered in the app using name, e-mail and password.
+```js
+yarn sequelize seed:generate --name admin-user
+```
 
-In order to update password, the user must also send a confirmation field with the same password.
+In the file generated in `src/database/seeds` add the code regarding the creation of an administrator user:
 
-- Encrypt user password for safety;
-- Entry user data must be validated to avoid incorrect operations.
+```js
+const bcrypt = require('bcryptjs');
+
+module.exports = {
+  up: QueryInterface => {
+    return QueryInterface.bulkInsert(
+      'users',
+      [
+        {
+          name: 'Administrador',
+          email: 'admin@gympoint.com',
+          password_hash: bcrypt.hashSync('123456', 8),
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+      ],
+      {}
+    );
+  },
+
+  down: () => {},
+};
+```
+
+Now run:
+
+```js
+yarn sequelize db:seed:all
+```
+
+By this point you will have an user in the database, use this user to perform all log-ins from now on.
+
+- The authentication must be done using JWT.
+- Perform an entry data validation.
+
+#### Students Register
+
+Allow the students to be kept (registered/updated) in the app using their name, email, age, weight and height.
+
+Use a new database table called `students`.
+
+The students register may only be done by administrators authenticated in the app.
+
+Students cannot authenticate in the system.
 
 ## How to test the app
 
