@@ -7,7 +7,7 @@ This repo holds all code created for RocketSeat's Bootcamp Challenges.
 - Stage #2: Mastering NodeJS!
 
   - [Module 2 - Environment and Concepts](stage2/challenge2)
-  - [Module 3 - Meetapp](stage2/challenge3)
+  - [Module 3 - Gympoint](stage2/challenge3)
   - [Module 4 - Meetapp Continuation](stage2/challenge4)
 
 - Stage #3: Mastering React!
