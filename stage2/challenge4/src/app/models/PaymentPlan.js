@@ -6,7 +6,7 @@ class PaymentPlan extends Model {
       {
         title: Sequelize.STRING,
         duration: Sequelize.INTEGER,
-        price: Sequelize.FLOAT,
+        price: Sequelize.REAL,
       },
       {
         sequelize,
