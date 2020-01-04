@@ -75,7 +75,7 @@ The table `checkins` will have the following fields:
 - created_at;
 - updated_at;
 
-The iser may only perform **5 check-ins** during a period of 7 days in a row.
+The user may only perform **5 check-ins** during a period of 7 days in a row.
 
 Request example: `POST https://gympoint.com/students/3/checkins`
 
