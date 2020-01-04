@@ -5,6 +5,9 @@ import Student from '../models/Student';
 import PaymentPlan from '../models/PaymentPlan';
 import Registration from '../models/Registration';
 
+import Queue from '../../lib/Queue';
+import RegistrationMail from '../jobs/RegistrationMail';
+
 class RegistrationController {
   async index(req, res) {
     const page = req.query.page || 1;
@@ -83,10 +86,30 @@ class RegistrationController {
 
     const end_date = addMonths(parseISO(start_date), paymentPlan.duration);
 
-    const registration = await Registration.create({
-      ...req.body,
-      end_date,
-      price,
+    const registration = await Registration.create(
+      {
+        ...req.body,
+        end_date,
+        price,
+      },
+      {
+        include: [
+          {
+            model: Student,
+            attributes: ['id', 'name', 'email'],
+          },
+          {
+            model: PaymentPlan,
+            attributes: ['id', 'title', 'duration', 'price'],
+          },
+        ],
+      }
+    );
+
+    await registration.reload();
+
+    await Queue.add(RegistrationMail.key, {
+      registration,
     });
 
     return res.json(registration);
@@ -111,10 +134,10 @@ class RegistrationController {
     }
 
     // Queries/uses either a newly-passed plan id/start date or existing one
-    const plan = plan_id || registration.plan_id;
-    const date = parseISO(start_date) || registration.start_date;
+    const resolvedPlan = plan_id || registration.plan_id;
+    const resolvedDate = parseISO(start_date) || registration.start_date;
 
-    const paymentPlan = await PaymentPlan.findByPk(plan);
+    const paymentPlan = await PaymentPlan.findByPk(resolvedPlan);
 
     // Evaluates only if param plan_id exists
     if (plan_id && !paymentPlan) {
@@ -122,13 +145,13 @@ class RegistrationController {
     }
 
     // Evaluates only if param start_date exists
-    if (start_date && isBefore(date, new Date())) {
+    if (start_date && isBefore(resolvedDate, new Date())) {
       return res.status(400).json({ error: 'Invalid past date.' });
     }
 
     // Ending date and price both needs to be recalculated upon start date or
     // plan change.
-    const end_date = addMonths(date, paymentPlan.duration);
+    const end_date = addMonths(resolvedDate, paymentPlan.duration);
     const price = paymentPlan.duration * paymentPlan.price;
 
     await registration.update({ ...req.body, end_date, price });
