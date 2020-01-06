@@ -3,11 +3,13 @@ import Sequelize from 'sequelize';
 import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
-import File from '../app/models/File';
-import Meetup from '../app/models/Meetup';
-import Subscription from '../app/models/Subscription';
+import Student from '../app/models/Student';
+import PaymentPlan from '../app/models/PaymentPlan';
+import Registration from '../app/models/Registration';
+import Checkin from '../app/models/Checkin';
+import HelpOrder from '../app/models/HelpOrder';
 
-const models = [User, File, Meetup, Subscription];
+const models = [User, Student, PaymentPlan, Registration, Checkin, HelpOrder];
 
 class Database {
   constructor() {

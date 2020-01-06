@@ -1,11 +1,12 @@
 import Bee from 'bee-queue';
 import * as Sentry from '@sentry/node';
 import sentryConfig from '../config/sentry';
-import SubscriptionMail from '../app/jobs/SubscriptionMail';
+import RegistrationMail from '../app/jobs/RegistrationMail';
+import HelpOrderAnswerMail from '../app/jobs/HelpOrderAnswerMail';
 
 Sentry.init(sentryConfig);
 
-const jobs = [SubscriptionMail];
+const jobs = [RegistrationMail, HelpOrderAnswerMail];
 
 class Queue {
   constructor() {
