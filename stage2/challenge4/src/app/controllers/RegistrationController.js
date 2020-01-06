@@ -20,6 +20,7 @@ class RegistrationController {
         'start_date',
         'end_date',
         'price',
+        'active',
       ],
       limit: 20,
       offset: 20 * page - 20,
@@ -37,6 +38,7 @@ class RegistrationController {
         'start_date',
         'end_date',
         'price',
+        'active',
       ],
     });
 
