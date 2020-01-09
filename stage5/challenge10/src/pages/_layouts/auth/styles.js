@@ -17,6 +17,10 @@ export const Content = styled.div`
   border-radius: 4px;
   padding: 40px 30px;
 
+  img {
+    height: 100px;
+  }
+
   form {
     display: flex;
     flex-direction: column;
