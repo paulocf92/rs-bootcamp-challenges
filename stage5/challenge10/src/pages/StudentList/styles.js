@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  width: 100%;
-  margin: auto 60px;
   display: flex;
   flex-direction: column;
+  flex: 1;
 
   h2 {
     color: #444;

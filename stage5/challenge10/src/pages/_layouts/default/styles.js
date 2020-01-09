@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: 100%;
+  min-height: 100%;
   background: #f5f5f5;
 `;
 
 export const Content = styled.div`
-  padding: 20px 40px;
+  padding: 20px 60px;
   display: flex;
 `;
