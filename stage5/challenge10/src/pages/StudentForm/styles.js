@@ -25,6 +25,13 @@ export const Wrapper = styled(MainWrapper)`
       color: #444;
     }
 
+    span {
+      color: #fb6f91;
+      align-self: flex-start;
+      margin: 0 20px 5px 0;
+      font-weight: bold;
+    }
+
     input {
       border: 1px solid #ddd;
       border-radius: 4px;

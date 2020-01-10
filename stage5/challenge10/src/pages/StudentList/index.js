@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
 
-import * as StudentActions from '../../store/modules/student/actions';
+import * as StudentActions from '~/store/modules/student/actions';
 
 import { MainContainer as Container } from '~/styles/common';
 import { Wrapper, Header } from './styles';
