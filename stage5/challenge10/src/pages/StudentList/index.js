@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '~/services/api';
 
-import { Container, StudentTable, ListHeader } from './styles';
+import { MainContainer as Container } from '~/styles/common';
+import { Wrapper, Header } from './styles';
 
 export default function StudentList() {
   const [students, setStudents] = useState([]);
@@ -25,12 +27,17 @@ export default function StudentList() {
     setSearchedStudents(searched);
   }
 
+  function test() {
+    const resp = window.confirm('Excluir aluno?'); // eslint-disable-line
+    // alert(resp);
+  }
+
   return (
     <Container>
-      <ListHeader>
+      <Header>
         <h2>Gerenciando alunos</h2>
         <div>
-          <button type="button">CADASTRAR</button>
+          <Link to="/students/register">CADASTRAR</Link>
           <input
             type="text"
             name="student"
@@ -39,10 +46,10 @@ export default function StudentList() {
             onChange={handleOnChange}
           />
         </div>
-      </ListHeader>
+      </Header>
 
-      <div>
-        <StudentTable>
+      <Wrapper>
+        <table>
           <thead>
             <tr>
               <th>NOME</th>
@@ -58,14 +65,16 @@ export default function StudentList() {
                 <td>{student.email}</td>
                 <td>{student.age}</td>
                 <td>
-                  <button type="button">editar</button>
-                  <button type="button">apagar</button>
+                  <Link to={`/students/edit/${student.id}`}>editar</Link>
+                  <button type="button" onClick={test}>
+                    apagar
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
-        </StudentTable>
-      </div>
+        </table>
+      </Wrapper>
     </Container>
   );
 }

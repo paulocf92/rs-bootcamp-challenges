@@ -10,6 +10,7 @@ import { store } from '~/store';
 export default function RouteWrapper({
   component: Component,
   isPrivate,
+  updating,
   ...rest
 }) {
   const { signed } = store.getState().auth;
@@ -29,7 +30,7 @@ export default function RouteWrapper({
       {...rest}
       render={props => (
         <Layout>
-          <Component {...props} />
+          <Component {...props} updating={updating} />
         </Layout>
       )}
     />
@@ -38,10 +39,12 @@ export default function RouteWrapper({
 
 RouteWrapper.propTypes = {
   isPrivate: PropTypes.bool,
+  updating: PropTypes.bool,
   component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
     .isRequired,
 };
 
 RouteWrapper.defaultProps = {
   isPrivate: false,
+  updating: false,
 };
