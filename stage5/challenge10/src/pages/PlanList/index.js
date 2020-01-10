@@ -7,8 +7,11 @@ import { formatPrice } from '~/util/format';
 
 import * as PlanActions from '~/store/modules/plan/actions';
 
-import { MainContainer as Container } from '~/styles/common';
-import { Wrapper, Header } from './styles';
+import {
+  MainContainer as Container,
+  MainWrapper as Wrapper,
+} from '~/styles/common';
+import { Header } from './styles';
 
 export default function PlanList() {
   const [plans, setPlans] = useState([]);
