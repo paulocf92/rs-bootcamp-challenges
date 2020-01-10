@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import api from '~/services/api';
+
+import * as StudentActions from '../../store/modules/student/actions';
 
 import { MainContainer as Container } from '~/styles/common';
 import { Wrapper, Header } from './styles';
@@ -8,6 +11,7 @@ import { Wrapper, Header } from './styles';
 export default function StudentList() {
   const [students, setStudents] = useState([]);
   const [searchedStudents, setSearchedStudents] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadStudents() {
@@ -27,9 +31,16 @@ export default function StudentList() {
     setSearchedStudents(searched);
   }
 
-  function test() {
-    const resp = window.confirm('Excluir aluno?'); // eslint-disable-line
-    // alert(resp);
+  function handleDeleteStudent({ id, name }) {
+    // eslint-disable-next-line
+    if (window.confirm(`Deseja realmente excluir ${name}?`)) {
+      dispatch(StudentActions.deleteStudentRequest(id));
+
+      setStudents(students.filter(student => student.id !== id));
+      setSearchedStudents(
+        searchedStudents.filter(student => student.id !== id),
+      );
+    }
   }
 
   return (
@@ -66,7 +77,10 @@ export default function StudentList() {
                 <td>{student.age}</td>
                 <td>
                   <Link to={`/students/edit/${student.id}`}>editar</Link>
-                  <button type="button" onClick={test}>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteStudent(student)}
+                  >
                     apagar
                   </button>
                 </td>
