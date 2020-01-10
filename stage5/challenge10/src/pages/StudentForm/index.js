@@ -19,12 +19,15 @@ const schema = Yup.object().shape({
     .required('E-mail obrigatório'),
   age: Yup.number()
     .typeError('Idade inválida')
+    .positive('Idade inválida')
     .required('Idade obrigatória'),
   weight: Yup.number()
     .typeError('Peso inválido')
+    .positive('Idade inválida')
     .required('Peso obrigatório'),
   height: Yup.number()
     .typeError('Altura inválida')
+    .positive('Idade inválida')
     .required('Altura obrigatória'),
 });
 
