@@ -31,7 +31,7 @@ export function* addStudent({ payload }) {
 
     history.push('/students');
   } catch (err) {
-    toast.error('Falha no cadastro do usuário! Verifique os dados informados.');
+    toast.error('Falha no cadastro do aluno! Verifique os dados informados.');
     yield put(addStudentFailure());
   }
 }
@@ -55,7 +55,7 @@ export function* updateStudent({ payload }) {
     history.push('/students');
   } catch (err) {
     toast.error(
-      'Falha na atualização do usuário! Verifique os dados informados.',
+      'Falha na atualização do aluno! Verifique os dados informados.',
     );
     yield put(updateStudentFailure());
   }
@@ -73,7 +73,7 @@ export function* deleteStudent({ payload }) {
 
     history.push('/students');
   } catch (err) {
-    toast.error('Falha na exclusão do usuário!');
+    toast.error('Falha na exclusão do aluno!');
     yield put(deleteStudentFailure());
   }
 }

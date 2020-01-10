@@ -23,11 +23,11 @@ const schema = Yup.object().shape({
     .required('Idade obrigatória'),
   weight: Yup.number()
     .typeError('Peso inválido')
-    .positive('Idade inválida')
+    .positive('Peso inválido')
     .required('Peso obrigatório'),
   height: Yup.number()
     .typeError('Altura inválida')
-    .positive('Idade inválida')
+    .positive('Altura inválida')
     .required('Altura obrigatória'),
 });
 
