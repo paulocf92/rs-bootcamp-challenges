@@ -36,6 +36,7 @@ routes.put('/users', UserController.update);
  * Payment plans
  */
 routes.get('/plans', PaymentPlanController.index);
+routes.get('/plans/:id', PaymentPlanController.show);
 routes.post('/plans', PaymentPlanController.store);
 routes.put('/plans/:id', PaymentPlanController.update);
 routes.delete('/plans/:id', PaymentPlanController.delete);

@@ -8,6 +8,7 @@ import StudentList from '~/pages/StudentList';
 import StudentForm from '~/pages/StudentForm';
 import RegistrationList from '~/pages/RegistrationList';
 import PlanList from '~/pages/PlanList';
+import PlanForm from '~/pages/PlanForm';
 import HelpOrderList from '~/pages/HelpOrderList';
 
 export default function() {
@@ -23,7 +24,9 @@ export default function() {
         isPrivate
       />
       <Route path="/registrations" component={RegistrationList} isPrivate />
-      <Route path="/plans" component={PlanList} isPrivate />
+      <Route path="/plans" exact component={PlanList} isPrivate />
+      <Route path="/plans/register" component={PlanForm} isPrivate />
+      <Route path="/plans/edit/:id" component={PlanForm} updating isPrivate />
       <Route path="/help-orders" component={HelpOrderList} isPrivate />
       <Redirect to="/" />; {/* Not found */}
     </Switch>

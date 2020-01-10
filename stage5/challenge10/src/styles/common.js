@@ -82,6 +82,10 @@ export const MainWrapper = styled.div`
       }
     }
   }
+
+  form {
+    padding: 5px 12px 0;
+  }
 `;
 
 export const MainHeader = styled.header`

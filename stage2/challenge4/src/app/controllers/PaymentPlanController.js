@@ -14,6 +14,14 @@ class PaymentPlanController {
     return res.json(paymentPlans);
   }
 
+  async show(req, res) {
+    const paymentPlan = await PaymentPlan.findByPk(req.params.id, {
+      attributes: ['id', 'title', 'duration', 'price'],
+    });
+
+    return res.json(paymentPlan);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
