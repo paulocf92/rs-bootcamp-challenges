@@ -93,14 +93,20 @@ export default function StudentForm({ match, updating }) {
           <Input name="name" label="NOME COMPLETO" />
           <Input name="email" label="ENDEREÇO DE E-MAIL" />
           <div>
-            <Input name="age" type="number" label="IDADE" />
-            <Input
-              name="weight"
-              type="number"
-              step="0.01"
-              label="PESO (em kg)"
-            />
-            <Input name="height" type="number" step="0.01" label="ALTURA" />
+            <div>
+              <Input name="age" type="number" label="IDADE" />
+            </div>
+            <div>
+              <Input
+                name="weight"
+                type="number"
+                step="0.01"
+                label="PESO (em kg)"
+              />
+            </div>
+            <div>
+              <Input name="height" type="number" step="0.01" label="ALTURA" />
+            </div>
           </div>
         </Form>
       </Wrapper>

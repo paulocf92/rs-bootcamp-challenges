@@ -26,10 +26,9 @@ export const Wrapper = styled(MainWrapper)`
     }
 
     span {
-      color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 20px 5px 0;
+      margin-bottom: 10px;
       font-weight: bold;
+      color: #fb6f91;
     }
 
     input {
@@ -42,6 +41,16 @@ export const Wrapper = styled(MainWrapper)`
 
       &::placeholder {
         color: #999;
+      }
+    }
+
+    & > div {
+      display: flex;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
       }
     }
   }

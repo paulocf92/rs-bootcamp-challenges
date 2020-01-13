@@ -46,7 +46,6 @@ export const Wrapper = styled(MainWrapper)`
 
     & > div {
       display: flex;
-      align-items: baseline;
 
       & > div {
         display: flex;
