@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import { parseISO, isBefore, addMonths } from 'date-fns';
-import { Op } from 'sequelize';
 
 import Student from '../models/Student';
 import PaymentPlan from '../models/PaymentPlan';
@@ -11,16 +10,9 @@ import RegistrationMail from '../jobs/RegistrationMail';
 
 class RegistrationController {
   async index(req, res) {
-    const { page = 1, q } = req.query;
-
-    const where = q
-      ? {
-          '$Student.name$': { [Op.like]: `${q}%` },
-        }
-      : {};
+    const { page = 1 } = req.query;
 
     const registrations = await Registration.findAll({
-      where,
       attributes: [
         'id',
         'student_id',
@@ -34,6 +26,10 @@ class RegistrationController {
         {
           model: Student,
           attributes: ['name', 'email', 'age', 'weight', 'height'],
+        },
+        {
+          model: PaymentPlan,
+          attributes: ['title', 'duration', 'price'],
         },
       ],
       limit: 20,
@@ -53,6 +49,12 @@ class RegistrationController {
         'end_date',
         'price',
         'active',
+      ],
+      include: [
+        {
+          model: Student,
+          attributes: ['name', 'email', 'age', 'weight', 'height'],
+        },
       ],
     });
 

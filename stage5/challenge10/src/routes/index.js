@@ -7,6 +7,7 @@ import SignIn from '~/pages/SignIn';
 import StudentList from '~/pages/StudentList';
 import StudentForm from '~/pages/StudentForm';
 import RegistrationList from '~/pages/RegistrationList';
+import RegistrationForm from '~/pages/RegistrationForm';
 import PlanList from '~/pages/PlanList';
 import PlanForm from '~/pages/PlanForm';
 import HelpOrderList from '~/pages/HelpOrderList';
@@ -23,7 +24,23 @@ export default function() {
         updating
         isPrivate
       />
-      <Route path="/registrations" component={RegistrationList} isPrivate />
+      <Route
+        path="/registrations"
+        exact
+        component={RegistrationList}
+        isPrivate
+      />
+      <Route
+        path="/registrations/register"
+        component={RegistrationForm}
+        isPrivate
+      />
+      <Route
+        path="/registrations/edit/:id"
+        component={RegistrationForm}
+        updating
+        isPrivate
+      />
       <Route path="/plans" exact component={PlanList} isPrivate />
       <Route path="/plans/register" component={PlanForm} isPrivate />
       <Route path="/plans/edit/:id" component={PlanForm} updating isPrivate />
