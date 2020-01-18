@@ -23,7 +23,7 @@ class GymHelpOrderController {
     return res.json(helpOrders);
   }
 
-  async store(req, res) {
+  async update(req, res) {
     const schema = Yup.object().shape({
       answer: Yup.string().required(),
     });

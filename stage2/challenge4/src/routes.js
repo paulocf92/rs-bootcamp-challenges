@@ -63,6 +63,6 @@ routes.delete('/registrations/:id', RegistrationController.delete);
  * Help orders managed by the gym
  */
 routes.get('/help-orders', GymHelpOrderController.index);
-routes.post('/help-orders/:id/answer', GymHelpOrderController.store);
+routes.put('/help-orders/:id/answer', GymHelpOrderController.update);
 
 export default routes;

@@ -57,7 +57,7 @@ export default function PlanForm({ match, updating }) {
     setPlanDuration(e.target.value);
   }
 
-  async function handleSubmit({ title, duration, price }) {
+  function handleSubmit({ title, duration, price }) {
     if (updating) {
       const { id } = match.params;
       dispatch(PlanActions.updatePlanRequest(id, title, duration, price));

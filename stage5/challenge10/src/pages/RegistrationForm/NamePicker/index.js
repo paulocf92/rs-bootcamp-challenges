@@ -52,7 +52,6 @@ export default function NamePicker({ inputName, label, defaultValue }) {
         cacheOptions
         value={inputStudent}
         onChange={onChangeHandler}
-        // onBlur={onBlurHandler}
         placeholder="Selecione o aluno"
         className="react-select-container"
         classNamePrefix="react-select"
