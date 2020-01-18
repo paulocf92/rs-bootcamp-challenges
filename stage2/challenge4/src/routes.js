@@ -36,6 +36,7 @@ routes.put('/users', UserController.update);
  * Payment plans
  */
 routes.get('/plans', PaymentPlanController.index);
+routes.get('/plans/:id', PaymentPlanController.show);
 routes.post('/plans', PaymentPlanController.store);
 routes.put('/plans/:id', PaymentPlanController.update);
 routes.delete('/plans/:id', PaymentPlanController.delete);
@@ -62,6 +63,6 @@ routes.delete('/registrations/:id', RegistrationController.delete);
  * Help orders managed by the gym
  */
 routes.get('/help-orders', GymHelpOrderController.index);
-routes.post('/help-orders/:id/answer', GymHelpOrderController.store);
+routes.put('/help-orders/:id/answer', GymHelpOrderController.update);
 
 export default routes;

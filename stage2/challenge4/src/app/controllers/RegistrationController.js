@@ -10,7 +10,7 @@ import RegistrationMail from '../jobs/RegistrationMail';
 
 class RegistrationController {
   async index(req, res) {
-    const page = req.query.page || 1;
+    const { page = 1 } = req.query;
 
     const registrations = await Registration.findAll({
       attributes: [
@@ -20,6 +20,17 @@ class RegistrationController {
         'start_date',
         'end_date',
         'price',
+        'active',
+      ],
+      include: [
+        {
+          model: Student,
+          attributes: ['name', 'email', 'age', 'weight', 'height'],
+        },
+        {
+          model: PaymentPlan,
+          attributes: ['title', 'duration', 'price'],
+        },
       ],
       limit: 20,
       offset: 20 * page - 20,
@@ -37,6 +48,13 @@ class RegistrationController {
         'start_date',
         'end_date',
         'price',
+        'active',
+      ],
+      include: [
+        {
+          model: Student,
+          attributes: ['name', 'email', 'age', 'weight', 'height'],
+        },
       ],
     });
 
