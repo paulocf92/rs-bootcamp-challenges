@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { StatusBar } from 'react-native';
 
-// import { Container } from './styles';
+import App from './App';
 
-export default function App() {
+export default function Index() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Hello World</Text>
-    </View>
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
+      <App />
+    </>
   );
 }
