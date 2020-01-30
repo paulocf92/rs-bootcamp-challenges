@@ -1,5 +1,9 @@
+import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+
+import Header from '~/components/Header';
 
 import SignIn from './pages/SignIn';
 
@@ -13,22 +17,34 @@ export default (signedIn = false) =>
         Sign: createSwitchNavigator({
           SignIn,
         }),
-        App: createBottomTabNavigator(
+        App: createStackNavigator(
           {
-            Checkin,
-            HelpOrder,
+            Main: createBottomTabNavigator(
+              {
+                Checkin,
+                HelpOrder,
+              },
+              {
+                cardStyle: {
+                  backgroundColor: '#191920',
+                },
+                resetOnBlur: true,
+                tabBarOptions: {
+                  keyboardHidesTabBar: true,
+                  activeTintColor: '#ee4d64',
+                  inactiveTintColor: '#ccc',
+                  tabStyle: {
+                    justifyContent: 'center',
+                  },
+                  showIcon: false,
+                },
+              },
+            ),
           },
           {
-            resetOnBlur: true,
-            tabBarOptions: {
-              keyboardHidesTabBar: true,
-              activeTintColor: '#ee4d64',
-              inactiveTintColor: '#ccc',
-              tabStyle: {
-                justifyContent: 'center',
-              },
-              showIcon: false,
-            },
+            defaultNavigationOptions: navigation => ({
+              header: () => <Header {...navigation} />,
+            }),
           },
         ),
       },
