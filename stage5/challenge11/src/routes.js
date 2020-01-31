@@ -7,8 +7,8 @@ import Header from '~/components/Header';
 
 import SignIn from './pages/SignIn';
 
-import Checkin from './pages/Checkin';
-import HelpOrder from './pages/HelpOrder';
+import CheckinList from './pages/CheckinList';
+import HelpOrderList from './pages/HelpOrderList';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -21,8 +21,8 @@ export default (signedIn = false) =>
           {
             Main: createBottomTabNavigator(
               {
-                Checkin,
-                HelpOrder,
+                CheckinList,
+                HelpOrderList,
               },
               {
                 cardStyle: {

@@ -16,6 +16,7 @@ class CheckinController {
           attributes: ['id', 'name'],
         },
       ],
+      order: [['createdAt', 'DESC']]
     });
 
     return res.json(checkins);
