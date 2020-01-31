@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn';
 
 import CheckinList from './pages/CheckinList';
 import HelpOrderList from './pages/HelpOrderList';
+import Detail from './pages/HelpOrderList/Detail';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -22,7 +23,17 @@ export default (signedIn = false) =>
             Main: createBottomTabNavigator(
               {
                 CheckinList,
-                HelpOrderList,
+                HelpOrder: createStackNavigator(
+                  {
+                    HelpOrderList,
+                    Detail,
+                  },
+                  {
+                    defaultNavigationOptions: {
+                      headerShown: false,
+                    },
+                  },
+                ),
               },
               {
                 cardStyle: {

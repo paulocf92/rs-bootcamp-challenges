@@ -15,6 +15,7 @@ class HelpOrderController {
           attributes: ['id', 'name', 'email', 'age', 'weight', 'height'],
         },
       ],
+      order: [['createdAt', 'DESC']]
     });
 
     return res.json(helpOrders);
