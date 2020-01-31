@@ -52,10 +52,6 @@ function HelpOrderList({ navigation, isFocused }) {
   );
 }
 
-HelpOrderList.navigationOptions = {
-  tabBarLabel: 'Pedir ajuda',
-};
-
 HelpOrderList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,

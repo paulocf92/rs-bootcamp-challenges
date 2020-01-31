@@ -25,18 +25,23 @@ export default (signedIn = false) =>
             Main: createBottomTabNavigator(
               {
                 CheckinList,
-                HelpOrder: createStackNavigator(
-                  {
-                    HelpOrderList,
-                    Detail,
-                    New,
-                  },
-                  {
-                    defaultNavigationOptions: {
-                      headerShown: false,
+                HelpOrder: {
+                  screen: createStackNavigator(
+                    {
+                      HelpOrderList,
+                      Detail,
+                      New,
                     },
+                    {
+                      defaultNavigationOptions: {
+                        headerShown: false,
+                      },
+                    },
+                  ),
+                  navigationOptions: {
+                    tabBarLabel: 'Pedir ajuda',
                   },
-                ),
+                },
               },
               {
                 cardStyle: {
