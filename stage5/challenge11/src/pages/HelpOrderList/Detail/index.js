@@ -7,8 +7,6 @@ import { Container, Block, Header, Label, Time, MainText } from './styles';
 export default function Detail({ navigation }) {
   const order = navigation.getParam('order');
 
-  console.tron.log(order);
-
   const questionDate = useMemo(() => {
     return formatRelative(parseISO(order.createdAt), new Date(), {
       locale: pt,

@@ -8,8 +8,10 @@ import Header from '~/components/Header';
 import SignIn from './pages/SignIn';
 
 import CheckinList from './pages/CheckinList';
+
 import HelpOrderList from './pages/HelpOrderList';
 import Detail from './pages/HelpOrderList/Detail';
+import New from './pages/HelpOrderList/New';
 
 export default (signedIn = false) =>
   createAppContainer(
@@ -27,6 +29,7 @@ export default (signedIn = false) =>
                   {
                     HelpOrderList,
                     Detail,
+                    New,
                   },
                   {
                     defaultNavigationOptions: {

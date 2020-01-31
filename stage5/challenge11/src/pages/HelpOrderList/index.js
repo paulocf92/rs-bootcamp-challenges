@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { withNavigationFocus } from 'react-navigation';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
@@ -8,7 +9,7 @@ import HelpOrder from '~/components/HelpOrder';
 
 import { Container, List, NewButton } from './styles';
 
-export default function HelpOrderList({ navigation }) {
+function HelpOrderList({ navigation, isFocused }) {
   const userId = useSelector(state => state.user.profile.id);
   const [helpOrders, setHelpOrders] = useState([]);
 
@@ -19,10 +20,18 @@ export default function HelpOrderList({ navigation }) {
   }, [userId]);
 
   useEffect(() => {
+    if (isFocused) {
+      loadHelpOrders();
+    }
+  }, [isFocused, loadHelpOrders]);
+
+  useEffect(() => {
     loadHelpOrders();
   }, [loadHelpOrders]);
 
-  function handleHelpOrder() {}
+  function handleHelpOrder() {
+    navigation.navigate('New');
+  }
 
   function handleDetail(order) {
     navigation.navigate('Detail', { order });
@@ -51,4 +60,11 @@ HelpOrderList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
   }).isRequired,
+  isFocused: PropTypes.bool,
 };
+
+HelpOrderList.defaultProps = {
+  isFocused: false,
+};
+
+export default withNavigationFocus(HelpOrderList);
