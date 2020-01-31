@@ -19,6 +19,7 @@ routes.post('/sessions', SessionController.store);
 /**
  * Student check-ins
  */
+routes.get('/students/:id', StudentController.show);
 routes.post('/students/:id/checkins', CheckinController.store);
 routes.get('/students/:id/checkins', CheckinController.show);
 
@@ -45,7 +46,6 @@ routes.delete('/plans/:id', PaymentPlanController.delete);
  * Student
  */
 routes.get('/students', StudentController.index);
-routes.get('/students/:id', StudentController.show);
 routes.post('/students', StudentController.store);
 routes.put('/students/:id', StudentController.update);
 routes.delete('/students/:id', StudentController.delete);

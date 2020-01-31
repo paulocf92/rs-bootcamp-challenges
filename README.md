@@ -24,5 +24,6 @@ This repo holds all code created for RocketSeat's Bootcamp Challenges.
 - Stage #5: Diving deeper into ReactJS and React Native!
 
   - [Module 10 - Gympoint Webapp](stage5/challenge10)
+  - [Module 11 - Gympoint Mobile](stage5/challenge11)
 
 Should you find any issues with the code, hit me up or send a pull request! :heart:
